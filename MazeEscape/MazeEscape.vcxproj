@@ -135,8 +135,6 @@
     <ClCompile Include="ConsoleRenderer.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="HPItem.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -145,7 +143,6 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="UI.cpp" />
-    <ClCompile Include="VisionRangeItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackPoint.h" />
@@ -154,8 +151,6 @@
     <ClInclude Include="ConsoleRenderer.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="HPItem.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="Game.h" />
@@ -163,7 +158,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="VisionRangeItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -40,6 +40,8 @@ void Game::Update()
 		}
 		case GameState::Playing:
 		{
+			_playTime += ConsoleHelper::GetDeltaTime();
+
 			if (_maze == nullptr)
 			{
 				_maze = new Maze;
@@ -50,6 +52,13 @@ void Game::Update()
 			_maze->SetTiles();
 			_maze->Update();
 			_maze->WriteMaze();
+
+			if (_maze->CheckGameClear()) //게임 클리어했으면
+				_state = GameState::Ending;
+			
+			if (_maze->CheckPlayerDead())
+				_state = GameState::GameOver;
+
 			break;
 		}
 	}
@@ -70,7 +79,6 @@ void Game::Render()
 		}
 		case GameState::Playing:
 		{
-			
 			UI::Render();
 			break;
 		}
@@ -81,7 +89,7 @@ void Game::Render()
 		}
 		case GameState::Ending:
 		{
-			UI::EndingRender();
+			UI::EndingRender(_playTime);
 			break;
 		}
 	}

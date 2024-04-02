@@ -41,5 +41,6 @@ enum TileType
 	TT_HorizontalEnemy = 6,
 	TT_AttackStart = 7,
 	TT_AttackPoint = 8,
-	TT_None = 9
+	TT_Exit = 9,
+	TT_None = 10
 };

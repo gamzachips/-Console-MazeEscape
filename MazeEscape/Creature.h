@@ -11,6 +11,7 @@ public:
 	int GetHP() { return _hp; }
 	
 protected:
-	int _hp;
+	int _hp = _maxHp;
+	int _maxHp;
 };
 

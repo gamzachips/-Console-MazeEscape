@@ -5,12 +5,24 @@
 
 Player::Player() : Creature(TileType::TT_Player)
 {
+	_maxHp = 5;
 	_hp = 5;
 }
 
 void Player::Update()
 {
 	Input();
+
+	if (_visionExpanded)
+	{
+		_visionTimer += ConsoleHelper::GetDeltaTime();
+		if (_visionTimer > _visionItemPersistTime)
+		{
+			_visionExpanded = false;
+			_visionTimer = 0.f;
+			_visionRange = 2;
+		}
+	}
 }
 
 void Player::Input()
@@ -62,10 +74,21 @@ void Player::Move(Pos nextPos)
 		//적이 위치한 곳에 이동하려고 하면 대미지
 		GetDamage();
 	}
-	if (_maze->GetTileType(nextPos) == TT_AttackPoint)
+	else if (_maze->GetTileType(nextPos) == TT_AttackPoint)
 	{
 		//공격 포인트로 이동하려고 하면 대미지
 		GetDamage();
+	}
+	else if (_maze->GetTileType(nextPos) == TT_HPItem)
+	{
+		//HP아이템 먹으면 HP 1 증가
+		_hp = min(_hp + 1, _maxHp);
+	}
+	else if (_maze->GetTileType(nextPos) == TT_VisionRangeItem)
+	{
+		//시야증가 아이템 먹으면 시야 3으로 증가
+		_visionRange = 3;
+		_visionExpanded = true;
 	}
 
 	_position = nextPos;

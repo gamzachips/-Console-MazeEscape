@@ -4,11 +4,10 @@ class Player;
 class UI
 {
 public:
-	static void Update();
 	static void Render();
 	static void StartRender();
 	static void GameOverRender();
-	static void EndingRender();
+	static void EndingRender(float time);
 	static void SetPlayer(Player* player) { _player = player; }
 
 private:

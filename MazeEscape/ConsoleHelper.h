@@ -8,6 +8,8 @@ enum class Color
 	GREEN = FOREGROUND_GREEN,
 	BLUE = FOREGROUND_BLUE,
 	YELLOW = FOREGROUND_GREEN | RED,
+	CYAN = GREEN | BLUE,
+	MAGENTA = RED | BLUE,
 	WHITE = RED | GREEN | BLUE,
 };
 
@@ -18,7 +20,6 @@ enum class KeyCode
 	LEFT = 75,
 	RIGHT = 77,
 	SPACE = 32,
-
 };
 
 class ConsoleHelper

@@ -45,13 +45,17 @@ public:
 	~List()
 	{
 		//메모리 해제
-		Node<T>* now = _head;
-		while (_head->_next != _tail)
-		{
-			erase(_head->_next);
-		}
+		clear();
 		delete _head;
 		delete _tail;
+	}
+	void clear()
+	{
+		Node<T>* now = _head;
+		while (now->_next != _tail)
+		{
+			erase(now->_next);
+		}
 	}
 	iterator begin() const
 	{

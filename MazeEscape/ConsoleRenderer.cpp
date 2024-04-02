@@ -10,11 +10,11 @@ COORD ConsoleRenderer::_cursorPos = {0 ,0 };
 
 ConsoleRenderer::ConsoleRenderer()
 {
-    //콘솔창 위치 지정
-    SetConsoleOnMiddle();
-
     //콘솔창 크기 지정
     ::system("mode con: cols=50 lines=15");
+
+    //콘솔창 위치 지정
+    SetConsoleOnMiddle();
 
     // 현재 화면크기에 맞는 화면 콘솔스크린버퍼 2개를 만든다.    
     hConsoleHandle = ::GetStdHandle(STD_OUTPUT_HANDLE);

@@ -6,6 +6,7 @@
 Enemy::Enemy(TileType type) : Creature(type)
 {
 	_hp = 1;
+	_maxHp = 1;
 }
 
 void Enemy::Update()

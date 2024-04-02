@@ -2,8 +2,6 @@
 #include "Maze.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "HPItem.h"
-#include "VisionRangeItem.h"
 #include "UI.h"
 #include "List.h"
 #include "AttackPoint.h"
@@ -19,10 +17,19 @@ const char* HPITEM = "¢¾";
 const char* VISIONITEM = "¢Â";
 const char* ATTACKSTART = "¡Ü";
 const char* ATTACKPOINT = "¡Û";
+const char* EXIT = "¢À";
 
 Maze::Maze()
 {
 
+}
+
+Maze::~Maze()
+{
+	delete _player;
+	_enemies.clear();
+	_attackPoints.clear();
+	delete _attackStartPoint;
 }
 
 void Maze::Init()
@@ -57,22 +64,6 @@ void Maze::Init()
 					enemy->SetPosition(Pos(y, x));
 					enemy->SetMaze(this);
 					_enemies.push_back(enemy);
-					break;
-				}
-				case TileType::TT_HPItem:
-				{
-					HPItem* item = new HPItem;
-					item->SetPosition(Pos(y, x));
-					item->SetMaze(this);
-					_items.push_back(item);
-					break;
-				}
-				case TileType::TT_VisionRangeItem:
-				{
-					VisionRangeItem* item = new VisionRangeItem;
-					item->SetPosition(Pos(y, x));
-					item->SetMaze(this);
-					_items.push_back(item);
 					break;
 				}
 			}
@@ -151,10 +142,10 @@ void Maze::WriteMaze()
 					ConsoleRenderer::SetString(TILE, (WORD)Color::WHITE);
 					break;
 				case TileType::TT_AttackStart:
-					ConsoleRenderer::SetString(ATTACKSTART, (WORD)Color::BLUE);
+					ConsoleRenderer::SetString(ATTACKSTART, (WORD)Color::CYAN);
 					break;
 				case TileType::TT_AttackPoint:
-					ConsoleRenderer::SetString(ATTACKPOINT, (WORD)Color::BLUE);
+					ConsoleRenderer::SetString(ATTACKPOINT, (WORD)Color::CYAN);
 					break;
 				case TileType::TT_Player:
 					ConsoleRenderer::SetString(PLAYER, (WORD)Color::GREEN);
@@ -169,7 +160,10 @@ void Maze::WriteMaze()
 					ConsoleRenderer::SetString(HPITEM, (WORD)Color::RED);
 					break;
 				case TileType::TT_VisionRangeItem:
-					ConsoleRenderer::SetString(VISIONITEM, (WORD)Color::WHITE);
+					ConsoleRenderer::SetString(VISIONITEM, (WORD)Color::MAGENTA);
+					break;				
+				case TileType::TT_Exit:
+					ConsoleRenderer::SetString(EXIT, (WORD)Color::BLUE);
 					break;
 			}
 		}
@@ -291,4 +285,16 @@ void Maze::MakeAttacks()
 		delete _attackStartPoint;
 	}
 	
+}
+
+bool Maze::CheckGameClear()
+{
+	if (GetTileType(_player->GetPosition()) == TT_Exit)
+		return true;
+	return false;
+}
+
+bool Maze::CheckPlayerDead()
+{
+	return _player->GetHP() <= 0;
 }

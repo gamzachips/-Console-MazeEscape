@@ -24,5 +24,7 @@ private:
 	Maze* _maze;
 	ConsoleRenderer* _renderer;
 	GameState _state;
+
+	float _playTime = 0.f;
 };
 
