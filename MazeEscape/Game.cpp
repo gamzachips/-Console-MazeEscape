@@ -26,6 +26,8 @@ void Game::Init()
 
 void Game::Update()
 {
+	ConsoleHelper::Update();
+
 	switch (_state)
 	{
 		case GameState::Start:
@@ -48,7 +50,6 @@ void Game::Update()
 				_maze->Init();
 			}
 
-			ConsoleHelper::Update();
 			_maze->SetTiles();
 			_maze->Update();
 			_maze->WriteMaze();
@@ -80,6 +81,9 @@ void Game::Render()
 		case GameState::Playing:
 		{
 			UI::Render();
+			char timeStr[10];
+			std::snprintf(timeStr, 10, "%.*f", 2, _playTime);
+			ConsoleRenderer::SetStringAtPos(40, 1, timeStr, (WORD)Color::CYAN);
 			break;
 		}
 		case GameState::GameOver:
@@ -93,7 +97,6 @@ void Game::Render()
 			break;
 		}
 	}
-
 }
 
 void Game::StartInput()
@@ -103,6 +106,7 @@ void Game::StartInput()
 		int key = _getch();
 		if (key == 'E' || key == 'e')
 		{
+			_playTime = 0.f;
 			_state = GameState::Playing;
 		}
 			
